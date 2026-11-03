@@ -1,0 +1,43 @@
+{
+    "mode": "REVIEWER_MODE",
+    "status": "SUCCESS",
+    "generated_at": "2026-11-03T17:31:15.155596+00:00",
+    "database": "database\\warehouse.db",
+    "mysql_required": false,
+    "source_rows": {
+        "customers": 100,
+        "products": 32,
+        "orders": 2000,
+        "order_items": 3988
+    },
+    "valid_rows": {
+        "customers": 100,
+        "products": 32,
+        "orders": 2000,
+        "order_items": 3988
+    },
+    "transformed_rows": {
+        "dim_customer": 100,
+        "dim_product": 32,
+        "dim_date": 304,
+        "dim_order": 2000,
+        "fact_sales": 3031
+    },
+    "loaded_sqlite_rows": {
+        "dim_customer": 100,
+        "dim_product": 32,
+        "dim_date": 304,
+        "dim_order": 2000,
+        "fact_sales": 3031
+    },
+    "basic_rejections": {
+        "customers": 0,
+        "products": 0,
+        "orders": 0,
+        "order_items": 0
+    },
+    "referential_rejections": {
+        "orders": 0,
+        "order_items": 0
+    }
+}

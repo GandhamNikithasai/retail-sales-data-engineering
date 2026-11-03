@@ -6,6 +6,7 @@ __pycache__/
 .pytest_cache/
 *.pyc
 *.db
+!database/warehouse.db
 *.sqlite
 *.sqlite3
 logs/
