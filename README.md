@@ -198,3 +198,193 @@ Automated tests previously reported 8 passed. Re-run the tests in the current en
 - CI/CD integration.
 - Additional monitoring and alerting.
 - Incremental loading improvements.
+## Run and Verify the ETL Pipeline Using Docker
+
+After cloning the repository and configuring your `.env` file, make sure Docker Desktop is running.
+
+### 1. Check Docker containers
+
+Run the following command to verify that MySQL and the dashboard containers are running:
+
+```powershell
+docker compose ps
+```
+
+Expected services:
+- `retail_mysql` – MySQL database (healthy)
+- `retail_dashboard` – Streamlit dashboard (running)
+
+### 2. Execute the ETL pipeline
+
+Run the ETL pipeline inside the Docker dashboard container:
+
+```powershell
+docker compose exec dashboard python -m src.pipeline
+```
+
+The pipeline performs the following operations:
+
+1. Extracts data from source CSV files.
+2. Validates incoming records.
+3. Performs referential integrity checks.
+4. Transforms the validated data.
+5. Loads data into the MySQL data warehouse.
+6. Loads data into the SQLite backup warehouse.
+7. Generates pipeline audit information and a run summary.
+
+### 3. Verify the MySQL database
+
+To view the database tables, run:
+
+```powershell
+docker compose exec mysql mysql -u retail_app -p yottaflex_retail_dw -e "SHOW TABLES;"
+```
+
+To check the number of loaded sales records:
+
+```powershell
+docker compose exec mysql mysql -u retail_app -p yottaflex_retail_dw -e "SELECT COUNT(*) AS total_sales FROM fact_sales;"
+```
+
+Enter the MySQL application password when prompted.
+
+### 4. Access the Streamlit Dashboard
+
+Open the following URL in your browser:
+
+```text
+http://localhost:8503
+```
+
+The Retail Sales Analytics Dashboard provides access to sales analytics and warehouse information.
+
+### 5. Run automated tests
+
+Execute the test suite inside Docker:
+
+```powershell
+docker compose exec dashboard python -m pytest -v
+```
+
+### 6. Stop Docker containers
+
+When finished, run:
+
+```powershell
+docker compose down
+```
+
+**Note:** The Docker Compose configuration uses a persistent MySQL volume. Stopping the containers does not delete the stored MySQL data. Donot use docker compose down -v unless you intentionally want to remove that volume.
+## Run and Verify the ETL Pipeline Using Docker
+
+### Prerequisites
+
+Before running the project, make sure you have installed:
+
+- Docker Desktop
+- Git
+- A GitHub account
+
+Make sure Docker Desktop is running before executing the commands.
+
+### 1. Clone the GitHub Repository
+
+Open PowerShell and run:
+
+```powershell
+git clone https://github.com/GandhamNikithasai/retail-sales-data-engineering.git
+cd retail-sales-data-engineering
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env` file in the project root directory.
+
+If the repository includes a `.env.example` file, copy it:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Open `.env` and configure your own MySQL database credentials. Never upload your actual `.env` file or passwords to GitHub.
+
+### 3. Start the Docker Containers
+
+Build and start the MySQL database and Streamlit dashboard:
+
+```powershell
+docker compose up -d --build
+```
+
+### 4. Check Docker Container Status
+
+Run:
+
+```powershell
+docker compose ps
+```
+
+Expected services:
+
+- `retail_mysql` – MySQL database (healthy)
+- `retail_dashboard` – Streamlit dashboard (running)
+
+### 5. Execute the ETL Pipeline
+
+Run the ETL pipeline inside the Docker dashboard container:
+
+```powershell
+docker compose exec dashboard python -m src.pipeline
+```
+
+The pipeline performs the following operations:
+
+1. Extracts data from source CSV files.
+2. Validates incoming records.
+3. Performs referential integrity checks.
+4. Transforms validated data.
+5. Loads data into the MySQL data warehouse.
+6. Loads data into the SQLite warehouse.
+7. Generates pipeline audit information and a run summary.
+
+### 6. Verify the MySQL Database
+
+View the database tables:
+
+```powershell
+docker compose exec mysql mysql -u retail_app -p yottaflex_retail_dw -e "SHOW TABLES;"
+```
+
+Check the number of loaded sales records:
+
+```powershell
+docker compose exec mysql mysql -u retail_app -p yottaflex_retail_dw -e "SELECT COUNT(*) AS total_sales FROM fact_sales;"
+```
+
+Enter the MySQL application password when prompted.
+
+### 7. Access the Streamlit Dashboard
+
+Open this URL in your browser:
+
+```text
+http://localhost:8503
+```
+
+### 8. Run Automated Tests
+
+Execute the test suite inside Docker:
+
+```powershell
+docker compose exec dashboard python -m pytest -v
+```
+
+### 9. Stop Docker Containers
+
+When finished, run:
+
+```powershell
+docker compose down
+```
+
+**Note:** Docker Compose uses a persistent MySQL volume. Stopping the containers does not delete stored MySQL data. Do not use `docker compose down -v` unless you intentionally want to delete the database volume.
