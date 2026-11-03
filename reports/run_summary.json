@@ -1,0 +1,48 @@
+{
+    "run_id": "7313f812-53f6-45dc-b5ba-68d19d353777",
+    "status": "SUCCESS",
+    "start_time": "2026-11-03T13:40:44.424070+00:00",
+    "end_time": "2026-11-03T13:40:46.303228+00:00",
+    "duration_seconds": 1.879,
+    "source_rows": {
+        "customers": 100,
+        "products": 32,
+        "orders": 2000,
+        "order_items": 3988
+    },
+    "valid_rows": {
+        "customers": 100,
+        "products": 32,
+        "orders": 2000,
+        "order_items": 3988
+    },
+    "rejected_rows": {
+        "customers": 0,
+        "products": 0,
+        "orders": 0,
+        "order_items": 0
+    },
+    "transformed_rows": {
+        "dim_customer": 100,
+        "dim_product": 32,
+        "dim_date": 304,
+        "dim_order": 2000,
+        "fact_sales": 3031
+    },
+    "loaded_rows": {
+        "mysql": {
+            "dim_customer": 100,
+            "dim_product": 32,
+            "dim_date": 304,
+            "fact_sales": 3031
+        },
+        "sqlite": {
+            "dim_customer": 100,
+            "dim_product": 32,
+            "dim_date": 304,
+            "dim_order": 2000,
+            "fact_sales": 3031
+        }
+    },
+    "error": null
+}
